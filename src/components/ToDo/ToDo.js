@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "./ToDo.module.css";
 
-const data = [
+const toDosInit = [
   { task: "Add some examples" },
   { task: "of to-dos" },
   { task: "so this can be" },
@@ -9,15 +9,20 @@ const data = [
   { task: "during development" },
 ];
 
-const toDoList = data.map((d) => (
-  <div>
-    <label>
-      <input type="checkbox" key={d.task} />
-      {d.task}
-    </label>
-  </div>
-));
+function ToDo(props) {
+  // this needed to be refactored into a function as Hooks (useState) can't be called @ top level
+  const [toDos, setToDos] = useState(toDosInit);
 
-const ToDo = () => <div className={styles.ToDo}>{toDoList}</div>;
+  const toDoList = toDos.map((toDo) => (
+    <div>
+      <label>
+        <input type="checkbox" key={toDo.key} />
+        {toDo.task}
+      </label>
+    </div>
+  ));
+
+  return <div className={styles.ToDo}>{toDoList}</div>;
+}
 
 export default ToDo;
